@@ -1,0 +1,17 @@
+{
+  "name": "http-api-assignment",
+  "version": "1.0.0",
+  "main": "eslint.config.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"No Tests\""
+  },
+  "author": "Julian Alvia",
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/jaa2128/http-api-assignment#readme",
+  "description": "",
+  "devDependencies": {
+    "eslint": "^9.39.2"
+  }
+}
