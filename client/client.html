@@ -5,6 +5,42 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script>
+    // Function thta handles fetch responses
+    const handleResponse = async (response) => {
+      response.text().then((resText) => {
+      
+      })
+    }
+
+    const sendFetch = async (url, acceptedType) => {
+      
+      const options = {
+        method: 'GET', 
+        headers: {'Accept': acceptedType}
+      }
+      
+      const fetchPromise = fetch(url, options);
+      fetchPromise.then(response => {
+        handleResponse(response);
+      })
+
+    }
+
+    const init = () => {
+      // get references to the the send button, as well as staus
+      // and types
+      const status = document.querySelector("#page");
+      const type = document.querySelector("#type");  
+      const sendButton = document.querySelector("#send");
+
+      // function to send a request based on status and type values
+      const sendRequest = () => sendFetch(status.value, type.value);
+
+      // add click funtionality
+      sendButton.addEventListener('click', sendRequest);
+    }
+
+    window.onload = init;
 
   </script>
 </head>
