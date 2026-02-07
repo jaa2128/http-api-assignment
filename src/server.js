@@ -7,6 +7,12 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
     '/': htmlHandler.getIndex,
     '/style.css': htmlHandler.getCss,
+    '/success': htmlHandler.getResponse,
+    '/badRequest': htmlHandler.getResponse,
+    '/unauthorized': htmlHandler.getResponse,
+    '/forbidden': htmlHandler.getResponse,
+    '/internal': htmlHandler.getResponse,
+    '/notImplemented': htmlHandler.getResponse,
     index: htmlHandler.getIndex
 };
 

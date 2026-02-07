@@ -5,10 +5,64 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script>
+    const fillContent = (content, contentType, h1, p, resText) => {
+            if(contentType === 'application/json'){
+              const parsedObj = JSON.parse(resText);
+              p.innerText = `Message: ${parsedObj.message}`;
+            } 
+            else if (contentType === 'text/xml') {
+             const parsedXML = new window.DOMParser().parseFromString(resText, 'text/xml');
+             p.innerText = `Message: ${parsedXML.querySelector('message').textContent}`;
+            }
+
+            content.appendChild(h1);
+            content.appendChild(p);
+    }
+
     // Function thta handles fetch responses
     const handleResponse = async (response) => {
-      response.text().then((resText) => {
-      
+      const content = document.querySelector("#content");
+
+      const statush1 = document.createElement('h1');
+      const message = document.createElement('p');
+
+      const contentType = resonse.headers.get('Content-Type');
+
+      response.text().then(resText => {
+        switch(response.status){
+          case 200:
+            statush1.innerHTML = `<b>Success</b>`;
+            fillContent(content, contentType, statush1, message, resText);
+            break;
+          case 400:
+            statush1.innerHTML = `<b>Bad Request</b>`;
+            fillContent(content, contentType, statush1, message, resText);
+            break;
+          case 401:
+            statush1.innerHTML = `<b>Unauthorized</b>`;
+            fillContent(content, contentType, statush1, message, resText);
+            break;
+          case 403:
+            statush1.innerHTML = `<b>Forbidden</b>`;
+            fillContent(content, contentType, statush1, message, resText);
+            break;
+          case 500:
+            statush1.innerHTML = `<b>Internal Server Error</b>`;
+            fillContent(content, contentType, statush1, message, resText);
+            break;
+          case 501:
+            statush1.innerHTML = `<b>Not Implemented</b>`;
+            fillContent(content, contentType, statush1, message, resText);
+            break;
+          case 404:
+            statush1.innerHTML = `<b>Not Found</b>`;
+            fillContent(content, contentType, statush1, message, resText);
+            break;
+          
+
+
+
+        }
       })
     }
 

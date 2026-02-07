@@ -20,7 +20,12 @@ const getCss = (request, response) => {
     respond(request, response, 200, css, 'text/css');
 }
 
+const getResponse = (request, response) => {
+  
+}
+
 module.exports = {
     getIndex,
-    getCss
+    getCss,
+    getResponse
 }
