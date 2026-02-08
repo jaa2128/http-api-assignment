@@ -1,19 +1,21 @@
 // http and handlers
 const http = require('http');
 const htmlHandler = require('./htmlResponses.js');
+const respondHandler = require('./responses.js');
 // Port
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const urlStruct = {
     '/': htmlHandler.getIndex,
     '/style.css': htmlHandler.getCss,
-    '/success': htmlHandler.getResponse,
-    '/badRequest': htmlHandler.getResponse,
-    '/unauthorized': htmlHandler.getResponse,
-    '/forbidden': htmlHandler.getResponse,
-    '/internal': htmlHandler.getResponse,
-    '/notImplemented': htmlHandler.getResponse,
-    index: htmlHandler.getIndex
+    '/success': respondHandler.success,
+    '/badRequest': respondHandler.badRequest,
+    '/unauthorized': respondHandler.unauthorized,
+    '/forbidden': respondHandler.forbidden,
+    '/internal': respondHandler.internal,
+    '/notImplemented': respondHandler.notImplemented,
+    '/notFound' : respondHandler.notFound,
+    notFound: respondHandler.notFound
 };
 
 const onRequest = (request, response) => {
@@ -31,7 +33,7 @@ const onRequest = (request, response) => {
         handler(request, response);
     } 
     else{
-        urlStruct.index(request, response);
+        urlStruct.notFound(request, response);
     }
 };
 

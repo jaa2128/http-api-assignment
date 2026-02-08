@@ -6,11 +6,14 @@
   
   <script>
     const fillContent = (content, contentType, h1, p, resText) => {
+      content.innerHTML = "";
             if(contentType === 'application/json'){
+              console.log(resText);
               const parsedObj = JSON.parse(resText);
               p.innerText = `Message: ${parsedObj.message}`;
             } 
             else if (contentType === 'text/xml') {
+              console.log(resText);
              const parsedXML = new window.DOMParser().parseFromString(resText, 'text/xml');
              p.innerText = `Message: ${parsedXML.querySelector('message').textContent}`;
             }
@@ -19,14 +22,14 @@
             content.appendChild(p);
     }
 
-    // Function thta handles fetch responses
+    // Function that handles fetch responses
     const handleResponse = async (response) => {
       const content = document.querySelector("#content");
 
       const statush1 = document.createElement('h1');
       const message = document.createElement('p');
 
-      const contentType = resonse.headers.get('Content-Type');
+      const contentType = response.headers.get('Content-Type');
 
       response.text().then(resText => {
         switch(response.status){
@@ -58,15 +61,11 @@
             statush1.innerHTML = `<b>Not Found</b>`;
             fillContent(content, contentType, statush1, message, resText);
             break;
-          
-
-
-
         }
       })
     }
 
-    const sendFetch = async (url, acceptedType) => {
+    const sendFetch = (url, acceptedType) => {
       
       const options = {
         method: 'GET', 
